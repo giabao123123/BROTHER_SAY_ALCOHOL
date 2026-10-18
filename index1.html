@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BROTHER SAY ALCOHOL — VTV Music Show</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+:root {
+    --bg-main: #0a0a0a;
+    --bg-card: #121212;
+    --border-line: rgba(255, 255, 255, 0.18);
+    --border-strong: #ffffff;
+    --text-main: #f4f4f5;
+    --text-sub: #8e8e93;
+    --font-display: 'Syne', sans-serif;
+    --font-sans: 'Space Grotesk', sans-serif;
+    --font-mono: 'Courier New', Courier, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    overflow-x: hidden;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 0);
+    background-size: 24px 24px;
+}
+
+/* QUY TẮC TỰ CO GIÃN THEO HÌNH: KHÔNG CẮT, VIỀN ÔM SÁT 100% MÉP ẢNH */
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: -0.03em; }
+.container { width: 92%; max-width: 1140px; margin: 0 auto; }
+.mono-tag { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* HEADER */
+.site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background: rgba(10, 10, 10, 0.9); border-bottom: 1px solid var(--border-line); backdrop-filter: blur(8px); }
+.nav-wrapper { display: flex; justify-content: space-between; align-items: center; height: 64px; }
+.logo { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; color: #fff; text-decoration: none; }
+.nav-links { display: flex; gap: 20px; list-style: none; }
+.nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: color 0.2s; }
+.nav-links a:hover { color: #fff; }
+
+/* BUTTONS */
+.raw-btn { display: inline-block; padding: 12px 24px; font-size: 0.85rem; font-weight: 700; font-family: var(--font-mono); text-decoration: none; text-transform: uppercase; border: 1px solid var(--border-strong); background: transparent; color: #fff; cursor: pointer; transition: all 0.2s ease; }
+.raw-btn:hover { background: #fff; color: #000; }
+.raw-btn.filled { background: #fff; color: #000; }
+.raw-btn.filled:hover { background: #d4d4d8; }
+
+/* HERO */
+.hero { padding: 140px 0 60px 0; border-bottom: 1px solid var(--border-line); }
+.hero-meta { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.live-dot { width: 8px; height: 8px; background: #fff; border-radius: 50%; box-shadow: 0 0 10px #fff; }
+.hero-title { font-size: clamp(2.8rem, 6vw, 5.5rem); line-height: 0.95; margin-bottom: 25px; font-weight: 800; }
+.hero-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: start; }
+.hero-lead { font-size: 1.15rem; color: #d4d4d8; margin-bottom: 25px; }
+
+.hero-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+.slot-img { border: 1px solid var(--border-line); background: #1c1c1e; }
+
+.wordplay-box { border: 1px dashed var(--border-line); padding: 20px; background: var(--bg-card); font-size: 0.9rem; color: var(--text-sub); }
+.wordplay-box strong { color: #fff; }
+
+/* MAIN POSTER SECTION */
+.poster-section { padding: 60px 0; border-bottom: 1px solid var(--border-line); background: var(--bg-card); }
+.poster-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: center; }
+.main-poster-img { border: 2px solid var(--border-strong); width: 100%; height: auto; }
+
+/* SECTION COMMON */
+.section-block { padding: 80px 0; border-bottom: 1px solid var(--border-line); }
+.section-head { margin-bottom: 40px; }
+.section-head h2 { font-size: 2rem; margin-top: 5px; }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.about-card { background: var(--bg-card); border: 1px solid var(--border-line); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; }
+.about-card h3 { font-size: 1.2rem; margin: 10px 0; }
+.about-card p { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 15px; }
+.slot-about-img { border: 1px solid var(--border-line); background: #1a1a1a; margin-top: auto; }
+
+/* JUDGES & AUDIENCE */
+.judges-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+.judge-item { border: 1px solid var(--border-line); padding: 20px; background: var(--bg-card); }
+.slot-judge-img { border: 1px solid var(--border-line); background: #1c1c1e; margin-bottom: 15px; }
+
+.audience-banner { border: 1px solid var(--border-strong); padding: 25px; display: grid; grid-template-columns: 220px 1fr auto; gap: 25px; align-items: center; background: #fff; color: #000; }
+.slot-audience-img { border: 1px solid #000; }
+.audience-num { font-family: var(--font-display); font-size: 3.5rem; font-weight: 800; line-height: 1; }
+
+/* ROUNDS */
+.rounds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.round-card { background: var(--bg-card); border: 1px solid var(--border-line); padding: 20px; }
+.slot-round-img { border: 1px solid var(--border-line); background: #1a1a1a; margin-bottom: 15px; }
+
+/* CALCULATOR */
+.calc-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: var(--bg-card); border: 1px solid var(--border-line); padding: 30px; }
+.form-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
+.input-block label { display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-sub); margin-bottom: 5px; }
+.input-block input { width: 100%; padding: 10px; background: #000; border: 1px solid var(--border-line); color: #fff; font-family: var(--font-mono); font-size: 1rem; }
+.calc-out { border-left: 1px solid var(--border-line); padding-left: 40px; display: flex; flex-direction: column; justify-content: center; }
+.total-display { font-family: var(--font-display); font-size: 4rem; font-weight: 800; line-height: 1; margin: 10px 0; }
+
+/* BATTLE AURA */
+.aura-box { border: 1px solid var(--border-strong); padding: 30px; background: #000; }
+.duel-flex { display: flex; align-items: center; gap: 20px; margin: 30px 0; }
+.fighter { flex: 1; border: 1px solid var(--border-line); padding: 20px; background: var(--bg-card); }
+.slot-fighter-img { border: 1px solid var(--border-line); background: #1a1a1a; margin-bottom: 15px; }
+.progress-track { height: 6px; background: #27272a; margin: 15px 0; }
+.progress-fill { height: 100%; background: #fff; transition: width 0.2s ease; }
+
+/* PRIZES */
+.prize-table { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+.prize-cell { border: 1px solid var(--border-line); padding: 20px; background: var(--bg-card); }
+.prize-cell.grand { border-color: #fff; background: #fff; color: #000; }
+.prize-val { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; margin-top: 10px; }
+
+/* GALLERY (BOTTOM POSITION) */
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+.slot-gallery-img { border: 1px solid var(--border-line); background: #151515; }
+
+/* FOOTER */
+footer { padding: 40px 0; font-size: 0.85rem; color: var(--text-sub); }
+.footer-flex { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-line); padding-bottom: 20px; margin-bottom: 20px; }
+
+@media (max-width: 850px) {
+    .hero-layout, .poster-container, .about-grid, .calc-wrapper, .judges-list, .rounds-grid, .prize-table, .gallery-grid, .audience-banner {
+        grid-template-columns: 1fr;
+    }
+    .calc-out { border-left: none; border-top: 1px solid var(--border-line); padding-left: 0; padding-top: 20px; }
+    .duel-flex { flex-direction: column; }
+    .nav-links { display: none; }
+}
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="site-header">
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">BROTHER SAY ALCOHOL</a>
+            <ul class="nav-links">
+                <li><a href="#poster">POSTER</a></li>
+                <li><a href="#about">FORMAT</a></li>
+                <li><a href="#judges">JUDGES</a></li>
+                <li><a href="#rounds">ROUNDS</a></li>
+                <li><a href="#rules">SCORING</a></li>
+                <li><a href="#battle">BATTLE AURA</a></li>
+                <li><a href="#prizes">PRIZES</a></li>
+                <li><a href="#gallery">GALLERY</a></li>
+            </ul>
+            <a href="#battle" class="raw-btn">LIVE DEMO</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-meta">
+                    <span class="live-dot"></span>
+                    <span class="mono-tag">VTV PRIME TIME // SUNDAY NIGHTS</span>
+                </div>
+                
+                <h1 class="hero-title">BROTHER SAY ALCOHOL</h1>
+                
+                <div class="hero-layout">
+                    <div>
+                        <p class="hero-lead">
+                            A raw vocal competition looking for voices that completely <strong>captivated (SAY MÊ)</strong> the crowd through authentic emotion and stage dominance.
+                        </p>
+                        <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                            <a href="#rules" class="raw-btn filled">CALCULATE SCORES</a>
+                            <a href="#poster" class="raw-btn">VIEW POSTER</a>
+                        </div>
+                        
+                        <!-- IMAGE SLOT 1 & 2: Hero Mini Gallery -->
+                    </div>
+                    
+                    <div class="wordplay-box">
+                        <span class="mono-tag">[ CONCEPT NOTE ]</span>
+                        <p style="margin-top: 8px;">
+                            <strong>"Say Alcohol"</strong> is a creative wordplay symbolizing a voice so deeply passionate and intoxicating that it touches the soul. It is not a literal reference to beverages.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN POSTER SECTION (SLOT 3: OFFICIAL SHOW POSTER) -->
+        <section id="poster" class="poster-section">
+            <div class="container">
+                <div class="section-head" style="margin-bottom: 20px;">
+                    <span class="mono-tag">OFFICIAL KEY VISUAL</span>
+                    <h2>SHOW POSTER</h2>
+                </div>
+                <div class="poster-container">
+                    <!-- IMAGE SLOT 3: MAIN SHOW POSTER -->
+                    <div>
+                        <img src="./BROTHERSSAYALCOHOL.jpg" alt="Brother Say Alcohol Official Poster" class="main-poster-img">
+                    </div>
+                    <div>
+                        <span class="mono-tag">[ SEASON 1 LAUNCH ]</span>
+                        <h3 style="font-size: 1.8rem; margin: 10px 0;">The Ultimate Musical Experience</h3>
+                        <p style="color: var(--text-sub); margin-bottom: 15px;">
+                            Catch every broadcast live on VTV every Sunday evening. A 2-hour immersive experience featuring elite vocalists, expert judges, and live studio voting.
+                        </p>
+                        <div class="mono-tag">BROADCAST: VTV // 2 HOURS // SUNDAYS</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT (SLOTS 4, 5, 6) -->
+        <section id="about" class="section-block">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono-tag">01 / SHOW STRUCTURE</span>
+                    <h2>WHAT TO EXPECT</h2>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-card">
+                        <span class="mono-tag">AIRTIME & DURATION</span>
+                        <h3>2 Hours Broadcast Every Sunday</h3>
+                        <p>A fast-paced weekly music contest broadcast nationwide on VTV, featuring live stage performances and instant scoring.</p>
+                        <!-- IMAGE SLOT 4 -->
+                        <img src="https://sukienngocnam.com.vn/wp-content/uploads/2023/07/to-chuc-chuong-trinh-ca-nhac-tai-Nha-Trang-1024x680.webp" alt="Broadcast Slot" class="slot-about-img">
+                    </div>
+                    <div class="about-card">
+                        <span class="mono-tag">PERFORMERS</span>
+                        <h3>3 Vocalists / Ep</h3>
+                        <p>Three contestants enter each episode to perform across 3 distinct rounds.</p>
+                        <!-- IMAGE SLOT 5 -->
+                        <img src="https://truyenhinhnghean.vn/file/4028eaa46735a26101673a4df345003c/122024/hat2_20241218152905.jpg" alt="Performers Slot" class="slot-about-img">
+                    </div>
+                    <div class="about-card">
+                        <span class="mono-tag">ROUNDS</span>
+                        <h3>3 Stages</h3>
+                        <p>First Impression, Emotional Synergy, and Final Peak Performance.</p>
+                        <!-- IMAGE SLOT 6 -->
+                        <img src="https://media.vietnamplus.vn/images/c14f6479e83e315b4cf3a2906cc6a51e49ef5f4342aad9d43bad7ed5e955f45730e0eb6cfcef0ca6388cc8b6facbe0a1120d687809679afc54b8bc3cc131d938/rock-8.jpg.webp" alt="Rounds Slot" class="slot-about-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JUDGES & AUDIENCE (SLOTS 7, 8, 9, 10) -->
+        <section id="judges" class="section-block">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono-tag">02 / EVALUATION PANEL</span>
+                    <h2>THE DECIDERS</h2>
+                </div>
+
+                <div class="judges-list">
+                    <div class="judge-item">
+                        <!-- IMAGE SLOT 7 -->
+
+                        <span class="mono-tag">PROFESSIONAL PANEL</span>
+                        <h3 style="margin-top: 5px;">Judge 01</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">Technical Vocal & Pitch Control</p>
+                    </div>
+                    <div class="judge-item">
+                        <!-- IMAGE SLOT 8 -->
+
+                        <span class="mono-tag">PROFESSIONAL PANEL</span>
+                        <h3 style="margin-top: 5px;">Judge 02</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">Arrangement & Stage Presence</p>
+                    </div>
+                    <div class="judge-item">
+                        <!-- IMAGE SLOT 9 -->
+
+                        <span class="mono-tag">PROFESSIONAL PANEL</span>
+                        <h3 style="margin-top: 5px;">Judge 03</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">Emotional Resonance & Impact</p>
+                    </div>
+                </div>
+
+                <div class="audience-banner">
+                    <!-- IMAGE SLOT 10 -->
+                    <div>
+
+                    </div>
+                    <div>
+                        <span class="mono-tag" style="color: #666;">STUDIO VOTERS</span>
+                        <h3 style="font-size: 1.2rem;">Live Audience Voting Panel</h3>
+                        <p style="font-size: 0.9rem; color: #333;">100 audience members cast direct votes to determine final rankings.</p>
+                    </div>
+                    <div class="audience-num">100</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROUNDS (SLOTS 11, 12, 13) -->
+        <section id="rounds" class="section-block">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono-tag">03 / COMPETITION STAGES</span>
+                    <h2>3 ROUNDS OF BATTLE</h2>
+                </div>
+                <div class="rounds-grid">
+                    <div class="round-card">
+                        <!-- IMAGE SLOT 11 -->
+
+                        <span class="mono-tag">ROUND 01</span>
+                        <h3 style="font-size: 1.1rem; margin: 8px 0;">First Impression</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">Solo introduction & vocal identity.</p>
+                    </div>
+                    <div class="round-card">
+                        <!-- IMAGE SLOT 12 -->
+
+                        <span class="mono-tag">ROUND 02</span>
+                        <h3 style="font-size: 1.1rem; margin: 8px 0;">Emotional Synergy</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">Themed performance & crowd connection.</p>
+                    </div>
+                    <div class="round-card">
+                        <!-- IMAGE SLOT 13 -->
+
+                        <span class="mono-tag">ROUND 03</span>
+                        <h3 style="font-size: 1.1rem; margin: 8px 0;">Peak Performance</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">High-energy grand showcase.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCORING TOOL -->
+        <section id="rules" class="section-block">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono-tag">04 / FORMULA CALCULATOR</span>
+                    <h2>SCORING SYSTEM</h2>
+                </div>
+
+                <div class="calc-wrapper">
+                    <div>
+                        <span class="mono-tag" style="margin-bottom: 15px; display: block;">[ INPUT DATA ]</span>
+                        <form id="calc-form">
+                            <div class="form-row">
+                                <div class="input-block">
+                                    <label>J1 (0-10)</label>
+                                    <input type="number" id="j1" min="0" max="10" step="0.1" value="9.0" required>
+                                </div>
+                                <div class="input-block">
+                                    <label>J2 (0-10)</label>
+                                    <input type="number" id="j2" min="0" max="10" step="0.1" value="8.5" required>
+                                </div>
+                                <div class="input-block">
+                                    <label>J3 (0-10)</label>
+                                    <input type="number" id="j3" min="0" max="10" step="0.1" value="9.5" required>
+                                </div>
+                            </div>
+                            <div class="input-block" style="margin-bottom: 20px;">
+                                <label>AUDIENCE VOTES (MAX 1000)</label>
+                                <input type="number" id="aud" min="0" max="1000" value="820" required>
+                            </div>
+                            <button type="submit" class="raw-btn filled" style="width: 100%;">RUN CALCULATION</button>
+                        </form>
+                    </div>
+
+                    <div class="calc-out">
+                        <span class="mono-tag">[ TOTAL RESULT ]</span>
+                        <div class="total-display" id="total-val">1630.0</div>
+                        <p class="mono-tag" id="breakdown-text" style="color: var(--text-sub);">
+                            Formula: (J_SUM × 30) + AUDIENCE
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BATTLE AURA (SLOTS 14, 15) -->
+        <section id="battle" class="section-block">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono-tag">05 / TIE-BREAKER MECHANIC</span>
+                    <h2>BATTLE AURA (AURA)</h2>
+                    <p style="color: var(--text-sub); margin-top: 5px;">
+                        “<strong>AURA</strong> is the unique charisma, confidence, and stage presence that makes a performer unforgettable.”
+                    </p>
+                </div>
+
+                <div class="aura-box">
+                    <span class="mono-tag">[ INTERACTIVE VOTING SIMULATOR ]</span>
+                    
+                    <div class="duel-flex">
+                        <div class="fighter">
+                            <!-- IMAGE SLOT 14 -->
+                            <img src="https://tuktukcd.com/wp-content/uploads/2026/04/IMG_20240118_0019.jpg" alt="Contestant A" class="slot-fighter-img">
+                            <span class="mono-tag">CONTESTANT A</span>
+                            <div class="progress-track">
+                                <div class="progress-fill" id="bar-a" style="width: 50%;"></div>
+                            </div>
+                            <div class="mono-tag" id="val-a" style="margin-bottom: 15px;">50 VOTES</div>
+                            <button class="raw-btn" onclick="vote('A')" style="width: 100%;">VOTE AURA (A)</button>
+                        </div>
+
+                        <div style="font-family: var(--font-mono); font-size: 1.2rem; font-weight: 700;">VS</div>
+
+                        <div class="fighter">
+                            <!-- IMAGE SLOT 15 -->
+                            <img src="https://tuktukcd.com/wp-content/uploads/2026/04/IMG_20241210_0002.jpg" alt="Contestant B" class="slot-fighter-img">
+                            <span class="mono-tag">CONTESTANT B</span>
+                            <div class="progress-track">
+                                <div class="progress-fill" id="bar-b" style="width: 50%;"></div>
+                            </div>
+                            <div class="mono-tag" id="val-b" style="margin-bottom: 15px;">50 VOTES</div>
+                            <button class="raw-btn" onclick="vote('B')" style="width: 100%;">VOTE AURA (B)</button>
+                        </div>
+                    </div>
+
+                    <div class="mono-tag" id="battle-status" style="text-align: center; color: #fff;">
+                        STATUS: CURRENTLY TIED AT 50 / 50
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRIZES -->
+        <section id="prizes" class="section-block">
+            <div class="container">
+                <div class="section-head">
+                    <span class="mono-tag">06 / PRIZE STRUCTURE</span>
+                    <h2>REWARDS</h2>
+                </div>
+
+                <div class="prize-table">
+                    <div class="prize-cell">
+                        <span class="mono-tag">QUARTER-FINAL</span>
+                        <div class="prize-val">3,000,000</div>
+                        <span class="mono-tag">VND</span>
+                    </div>
+                    <div class="prize-cell">
+                        <span class="mono-tag">SEMI-FINAL</span>
+                        <div class="prize-val">5,000,000</div>
+                        <span class="mono-tag">VND</span>
+                    </div>
+                    <div class="prize-cell">
+                        <span class="mono-tag">FINAL</span>
+                        <div class="prize-val">10,000,000</div>
+                        <span class="mono-tag">VND</span>
+                    </div>
+                    <div class="prize-cell grand">
+                        <span class="mono-tag" style="color: #000;">GRAND CHAMPION</span>
+                        <div class="prize-val">100,000,000</div>
+                        <span class="mono-tag" style="color: #000;">VND + RECORD CONTRACT</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-flex">
+                <div>
+                    <strong>BROTHER SAY ALCOHOL</strong>
+                    <div class="mono-tag" style="margin-top: 5px;">VTV NETWORK // OFFICIAL BROADCAST</div>
+                </div>
+                <div class="mono-tag">
+                    SUNDAY EVENINGS • 2 HOURS
+                </div>
+            </div>
+            <div class="mono-tag text-center">
+                &copy; 2026 BROTHER SAY ALCOHOL. groub 4
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // CALCULATOR LOGIC
+        document.getElementById('calc-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const j1 = parseFloat(document.getElementById('j1').value) || 0;
+            const j2 = parseFloat(document.getElementById('j2').value) || 0;
+            const j3 = parseFloat(document.getElementById('j3').value) || 0;
+            const aud = parseFloat(document.getElementById('aud').value) || 0;
+
+            const jTotal = j1 + j2 + j3;
+            const jScaled = jTotal * 30;
+            const grandTotal = jScaled + aud;
+
+            document.getElementById('total-val').textContent = grandTotal.toFixed(1);
+            document.getElementById('breakdown-text').textContent = 
+                `FORMULA: (${jTotal.toFixed(1)} × 30 = ${jScaled.toFixed(1)}) + ${aud} AUDIENCE PTS`;
+        });
+
+        // BATTLE SIMULATOR LOGIC
+        let votesA = 50;
+        let votesB = 50;
+
+        function vote(team) {
+            if (team === 'A' && votesA < 100) {
+                votesA += 1;
+                votesB -= 1;
+            } else if (team === 'B' && votesB < 100) {
+                votesB += 1;
+                votesA -= 1;
+            }
+
+            document.getElementById('bar-a').style.width = votesA + '%';
+            document.getElementById('bar-b').style.width = votesB + '%';
+
+            document.getElementById('val-a').textContent = votesA + ' VOTES';
+            document.getElementById('val-b').textContent = votesB + ' VOTES';
+
+            const status = document.getElementById('battle-status');
+            if (votesA > votesB) {
+                status.textContent = `STATUS: CONTESTANT A LEADING (+${votesA - votesB})`;
+            } else if (votesB > votesA) {
+                status.textContent = `STATUS: CONTESTANT B LEADING (+${votesB - votesA})`;
+            } else {
+                status.textContent = 'STATUS: CURRENTLY TIED AT 50 / 50';
+            }
+        }
+    </script>
+</body>
+</html>
+
