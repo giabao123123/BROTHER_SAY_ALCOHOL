@@ -407,10 +407,10 @@ But what happens if there is a tie? That is when the show gets super thrilling w
                             <img src="https://tuktukcd.com/wp-content/uploads/2026/04/IMG_20240118_0019.jpg" alt="Contestant A" class="slot-fighter-img">
                             <span class="mono-tag">CONTESTANT A</span>
                             <div class="progress-track">
-                                <div class="progress-fill" id="bar-a" style="width: 50%;"></div>
+                                <div class="progress-fill" id="bar-a" style="width: 0%;"></div>
                             </div>
-                            <div class="mono-tag" id="val-a" style="margin-bottom: 15px;">50 VOTES</div>
-                            <button class="raw-btn" onclick="vote('A')" style="width: 100%;">VOTE AURA (A)</button>
+                            <div class="mono-tag" id="val-a" style="margin-bottom: 15px;">0 VOTES</div>
+                            <button class="raw-btn" id="btn-a" onclick="vote('A')" style="width: 100%;" disabled>VOTE AURA (A)</button>
                         </div>
 
                         <div style="font-family: var(--font-mono); font-size: 1.2rem; font-weight: 700;">VS</div>
@@ -420,16 +420,17 @@ But what happens if there is a tie? That is when the show gets super thrilling w
                             <img src="https://tuktukcd.com/wp-content/uploads/2026/04/IMG_20241210_0002.jpg" alt="Contestant B" class="slot-fighter-img">
                             <span class="mono-tag">CONTESTANT B</span>
                             <div class="progress-track">
-                                <div class="progress-fill" id="bar-b" style="width: 50%;"></div>
+                                <div class="progress-fill" id="bar-b" style="width: 0%;"></div>
                             </div>
-                            <div class="mono-tag" id="val-b" style="margin-bottom: 15px;">50 VOTES</div>
-                            <button class="raw-btn" onclick="vote('B')" style="width: 100%;">VOTE AURA (B)</button>
+                            <div class="mono-tag" id="val-b" style="margin-bottom: 15px;">0 VOTES</div>
+                            <button class="raw-btn" id="btn-b" onclick="vote('B')" style="width: 100%;" disabled>VOTE AURA (B)</button>
                         </div>
                     </div>
 
                     <div class="mono-tag" id="battle-status" style="text-align: center; color: #fff;">
-                        STATUS: CURRENTLY TIED AT 50 / 50
+                        STATUS: LOADING...
                     </div>
+                    <div class="mono-tag" id="vote-note" style="text-align: center; margin-top: 10px;"></div>
                 </div>
             </div>
         </section>
@@ -487,6 +488,10 @@ But what happens if there is a tie? That is when the show gets super thrilling w
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
     <!-- JAVASCRIPT LOGIC -->
     <script>
         // CALCULATOR LOGIC
@@ -507,34 +512,85 @@ But what happens if there is a tie? That is when the show gets super thrilling w
                 `FORMULA: (${jTotal.toFixed(1)} × 30 = ${jScaled.toFixed(1)}) + ${aud} AUDIENCE PTS`;
         });
 
-        // BATTLE SIMULATOR LOGIC
-        let votesA = 50;
-        let votesB = 50;
+        // ===== LIVE VOTING (Firebase Realtime Database) =====
+        // Dán cấu hình Firebase của bạn vào đây (xem hướng dẫn kèm theo)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDkAyNX1bCrFV8TONzgZR1JEvIeqgOZ-w8",
+            authDomain: "brotherssayalcohol.firebaseapp.com",
+            databaseURL: "https://brotherssayalcohol-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "brotherssayalcohol",
+            storageBucket: "brotherssayalcohol.firebasestorage.app",
+            messagingSenderId: "538570004820",
+            appId: "1:538570004820:web:f734265b14bca11fbdd0c1"
+        };
+
+        const $ = id => document.getElementById(id);
+        const note = $('vote-note');
+        let uid = null, myVote = null, db = null, ready = false;
+
+        try { myVote = localStorage.getItem('auraVote'); } catch (e) {}
+
+        function render(a, b) {
+            const total = a + b;
+            $('bar-a').style.width = (total ? a / total * 100 : 0) + '%';
+            $('bar-b').style.width = (total ? b / total * 100 : 0) + '%';
+            $('val-a').textContent = a + ' VOTES' + (total ? ` (${Math.round(a / total * 100)}%)` : '');
+            $('val-b').textContent = b + ' VOTES' + (total ? ` (${Math.round(b / total * 100)}%)` : '');
+
+            const st = $('battle-status');
+            if (a > b) st.textContent = `STATUS: CONTESTANT A LEADING (+${a - b})`;
+            else if (b > a) st.textContent = `STATUS: CONTESTANT B LEADING (+${b - a})`;
+            else st.textContent = total ? `STATUS: TIED AT ${a} / ${b}` : 'STATUS: NO VOTES YET';
+
+            const locked = !ready || !!myVote;
+            $('btn-a').disabled = locked;
+            $('btn-b').disabled = locked;
+            $('btn-a').textContent = myVote === 'A' ? 'YOU VOTED A ✓' : 'VOTE AURA (A)';
+            $('btn-b').textContent = myVote === 'B' ? 'YOU VOTED B ✓' : 'VOTE AURA (B)';
+            if (myVote) note.textContent = 'THANK YOU! YOU CAN ONLY VOTE ONCE.';
+        }
 
         function vote(team) {
-            if (team === 'A' && votesA < 100) {
-                votesA += 1;
-                votesB -= 1;
-            } else if (team === 'B' && votesB < 100) {
-                votesB += 1;
-                votesA -= 1;
-            }
-
-            document.getElementById('bar-a').style.width = votesA + '%';
-            document.getElementById('bar-b').style.width = votesB + '%';
-
-            document.getElementById('val-a').textContent = votesA + ' VOTES';
-            document.getElementById('val-b').textContent = votesB + ' VOTES';
-
-            const status = document.getElementById('battle-status');
-            if (votesA > votesB) {
-                status.textContent = `STATUS: CONTESTANT A LEADING (+${votesA - votesB})`;
-            } else if (votesB > votesA) {
-                status.textContent = `STATUS: CONTESTANT B LEADING (+${votesB - votesA})`;
-            } else {
-                status.textContent = 'STATUS: CURRENTLY TIED AT 50 / 50';
-            }
+            if (!ready || myVote || !uid) return;
+            $('btn-a').disabled = true;
+            $('btn-b').disabled = true;
+            db.ref('votes/' + uid).set(team).then(() => {
+                myVote = team;
+                try { localStorage.setItem('auraVote', team); } catch (e) {}
+            }).catch(() => {
+                note.textContent = 'VOTE FAILED (ALREADY VOTED OR NETWORK ERROR).';
+                $('btn-a').disabled = !!myVote;
+                $('btn-b').disabled = !!myVote;
+            });
         }
+
+        (function initVoting() {
+            if (typeof firebase === 'undefined' || firebaseConfig.apiKey.startsWith('YOUR_')) {
+                $('battle-status').textContent = 'STATUS: VOTING NOT CONNECTED';
+                note.textContent = 'ADMIN: ADD YOUR FIREBASE CONFIG TO ENABLE LIVE VOTING.';
+                return;
+            }
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+            firebase.auth().signInAnonymously().catch(() => {
+                note.textContent = 'COULD NOT CONNECT. PLEASE RELOAD.';
+            });
+            firebase.auth().onAuthStateChanged(user => {
+                if (!user) return;
+                uid = user.uid;
+                db.ref('votes').on('value', snap => {
+                    const all = snap.val() || {};
+                    let a = 0, b = 0;
+                    Object.values(all).forEach(v => { if (v === 'A') a++; else if (v === 'B') b++; });
+                    if (all[uid]) {
+                        myVote = all[uid];
+                        try { localStorage.setItem('auraVote', myVote); } catch (e) {}
+                    }
+                    ready = true;
+                    render(a, b);
+                }, () => { note.textContent = 'COULD NOT LOAD VOTES.'; });
+            });
+        })();
     </script>
 </body>
 </html>
